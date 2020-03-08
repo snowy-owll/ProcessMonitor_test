@@ -29,7 +29,12 @@ namespace ProcessMonitor
                 .UseConstructorInjection(services);
             try
             {
+#if DEBUG
+                var res = await app.ExecuteAsync(new string[] {"notepad", "5", "1"}, cancelTokenSource.Token);
+                Console.ReadKey(); 
+#else
                 var res = await app.ExecuteAsync(args, cancelTokenSource.Token);
+#endif
                 return res;
             }
             catch(CommandParsingException e)

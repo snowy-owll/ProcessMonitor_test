@@ -83,6 +83,10 @@ namespace ProcessMonitor
                 _console.WriteLine($"Access denied to process '{ProcessName}'");
                 return 1;
             }
+            catch (TaskCanceledException)
+            {
+                _console.WriteLine("Waiting for process lifetime to exceed successfully canceled.");
+            }
             catch (Exception)
             {
                 if(_processService.IsProcessRunning)
